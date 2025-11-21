@@ -43,7 +43,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
   const opts = {
     height: "390",
-    widht: "100%",
+    width: "100%",
     playerVars: {
       autoplay: 1,
     },
@@ -54,20 +54,25 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       <h1>{title}</h1>
       <div className="row_posters">
         {movie?.map((movie, index) => (
-          <img
-            onClick={() => handleClick(movie)}
-            key={index}
-            src={`${base_url}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
-            alt={movie.name}
-            className={`row_poster ${isLargeRow && "row_posterLarge"}`}
-          />
+          <div className="movie-items">
+            <img
+              onClick={() => handleClick(movie)}
+              key={index}
+              src={`${base_url}${
+                isLargeRow ? movie.poster_path : movie.backdrop_path
+              }`}
+              alt={movie.name}
+              className={`row_poster ${isLargeRow && "row_posterLarge"}`}
+            />
+            <div className="movie_title">
+              <p>{movie?.title || movie?.name || movie?.original_name}</p>
+            </div>
+          </div>
         ))}
       </div>
-      <div style={{padding: '40px'}}>
-            {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}/>}
-        </div>
+      <div style={{ padding: "40px" }}>
+        {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+      </div>
     </div>
   );
 };
